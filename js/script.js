@@ -31,10 +31,10 @@ function setup() {
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5);
   // Create the right paddle with UP and DOWN as controls
-  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW, "Player 2");
+  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW, "Player 2", "#8F1D21");
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
-  leftPaddle = new Paddle(0,height/2,10,60,10,83,87, "Player 1");
+  leftPaddle = new Paddle(0,height/2,10,60,10,83,87, "Player 1","#8F1D21");
 }
 
 // draw()
@@ -45,6 +45,8 @@ function draw() {
 ////// NEW ////////
 //if game over basically do this:
 if(!gameOver == true){
+  // displays the score on screen
+      displayScore();
 //makes the backgrond transparent for a ghosly effect
     background(0,0,0,50);
 // AI. Mover both paddles
@@ -57,8 +59,8 @@ if(!gameOver == true){
     rightPaddle.vy = 0;
   }
 
-  //  leftPaddle.handleInput();
-  //  rightPaddle.handleInput();
+//    leftPaddle.handleInput();
+//    rightPaddle.handleInput();
 
     ball.update();
     leftPaddle.update();
@@ -75,18 +77,19 @@ if(!gameOver == true){
       }
 
       ball.reset();
+      checksScore();
+
     }
 
     ball.handleCollision(leftPaddle);
     ball.handleCollision(rightPaddle);
 
-    ball.display();
     leftPaddle.display();
     rightPaddle.display();
 
+    ball.display();
+
   }
-  // displays the score on screen
-      displayScore();
 }
 //displays score on screen
 function displayScore(){
@@ -103,7 +106,23 @@ function isGameOver(paddle){
     background(0);
     textSize(30);
     textAlign(CENTER);
+// makes the winner Auqua
     text(paddle.name + " wins!", width/2, height/3);
+  }
+}
+// makes winning AI green, losing AI red, and tied yellow
+function checksScore(){
+  if (leftPaddle.score > rightPaddle.score){
+    leftPaddle.color = "#03A678";
+    rightPaddle.color = "#8F1D21";
+  }
+  else if (leftPaddle.score < rightPaddle.score){
+    leftPaddle.color = "#8F1S121"
+    rightPaddle.color = "#03A678"
+  }
+  else{
+    leftPaddle.color = "#F9690E";
+    rightPaddle.color = "#F9690E";
   }
 }
 ///////END/////////

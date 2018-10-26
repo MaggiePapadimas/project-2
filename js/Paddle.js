@@ -6,7 +6,7 @@
 // Paddle constructor
 //
 // Sets the properties with the provided arguments or defaults
-function Paddle(x,y,w,h,speed,downKey,upKey,name) {
+function Paddle(x,y,w,h,speed,downKey,upKey,name, color) {
   this.x = x;
   this.y = y;
   this.vx = 0;
@@ -19,6 +19,7 @@ function Paddle(x,y,w,h,speed,downKey,upKey,name) {
 ////// NEW /////////
   this.score= 0;
   this.name = name;
+  this.color= color;
 ////// END ////////
 }
 
@@ -48,10 +49,10 @@ Paddle.prototype.update = function() {
 
 // display()
 //
-// Draw the paddle as RED rectangles on the screen
+// Draws the paddles as RED rectangles on the screen
 Paddle.prototype.display = function() {
 //////////////////NEW///////////
-  fill("#8F1D21");
+  fill(this.color);
 //////END////////////
   rect(this.x,this.y,this.w,this.h);
 }

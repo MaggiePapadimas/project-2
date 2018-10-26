@@ -47,23 +47,6 @@ Ball.prototype.isOffScreen = function () {
   else {
     return false;
   }
-  ////////// NEW //////////
-//if scored on paddle gets bigger, and if score paddle gets smaller
-  var scored = false;
-//checks which side the ball went to keep track of score
-  if (ballLeft > width){
-    scored = true;
-    score(leftPaddle);
-    scoredOn(rightPaddle);
-    reset(-8);
-  }
-  else if (ballRight < 0) {
-    scored = true;
-    score(rightPaddle);
-    scoredOn(leftPaddle);
-    reset(8);
-  }
-////////// END //////////
 }
 
 // display()
