@@ -50,7 +50,7 @@ Ball.prototype.isOffScreen = function () {
   ////////// NEW //////////
 //if scored on paddle gets bigger, and if score paddle gets smaller
   var scored = false;
-
+//checks which side the ball went to keep track of score
   if (ballLeft > width){
     scored = true;
     score(leftPaddle);
@@ -95,6 +95,7 @@ Ball.prototype.handleCollision = function(paddle) {
 
 // reset()
 //
+/////////////NEW//////////////
 // Set position back to the middle of the screen
 Ball.prototype.reset = function () {
   this.x = width/2;
@@ -105,3 +106,4 @@ Ball.prototype.reset = function () {
     this.vy = random(-10,10);
   }
 }
+///////////////END////////////////

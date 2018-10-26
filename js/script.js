@@ -43,22 +43,27 @@ function setup() {
 // and displays everything.
 function draw() {
 ////// NEW ////////
+//if game over basically do this:
 if(!gameOver == true){
 //makes the backgrond transparent for a ghosly effect
     background(0,0,0,50);
-// displays the score on screen
-    displayScore();
-// if game over = true it resets game
-//////// END //////////
-//    rightPaddle.moveAI(ball);
+// AI. Mover both paddles
+  if(ball.vx > 0){
+    rightPaddle.moveAI(ball);
+    leftPaddle.vy = 0;
+  }
+  else{
+    leftPaddle.moveAI(ball);
+    rightPaddle.vy = 0;
+  }
 
-    leftPaddle.handleInput();
+  //  leftPaddle.handleInput();
   //  rightPaddle.handleInput();
 
     ball.update();
     leftPaddle.update();
     rightPaddle.update();
-
+//tracks score && checks to see if game is over
     if (ball.isOffScreen()) {
       if(ball.x >= width){
         leftPaddle.scored();
@@ -80,9 +85,12 @@ if(!gameOver == true){
     rightPaddle.display();
 
   }
+  // displays the score on screen
+      displayScore();
 }
 //displays score on screen
 function displayScore(){
+  fill(255);
   textSize(15);
   text("--SCORE--",250, 30);
   text(""+leftPaddle.score, leftPaddle.x, 30);
@@ -98,3 +106,4 @@ function isGameOver(paddle){
     text(paddle.name + " wins!", width/2, height/3);
   }
 }
+///////END/////////

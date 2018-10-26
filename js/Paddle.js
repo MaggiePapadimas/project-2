@@ -48,16 +48,19 @@ Paddle.prototype.update = function() {
 
 // display()
 //
-// Draw the paddle as a rectangle on the screen
+// Draw the paddle as RED rectangles on the screen
 Paddle.prototype.display = function() {
-  fill(255);
+//////////////////NEW///////////
+  fill("#8F1D21");
+//////END////////////
   rect(this.x,this.y,this.w,this.h);
 }
-//// NEW ///////
+//////////////////NEW///////////
+// adds 1 to score after ever score
 Paddle.prototype.scored = function(){
   this.score += 1;
 }
-
+// AI
 Paddle.prototype.moveAI = function(ball){
   if(abs(ball.x - this.x) >2*this.w ){
     if(ball.y > this.y){
