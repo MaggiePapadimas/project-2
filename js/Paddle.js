@@ -6,7 +6,7 @@
 // Paddle constructor
 //
 // Sets the properties with the provided arguments or defaults
-function Paddle(x,y,w,h,speed,downKey,upKey) {
+function Paddle(x,y,w,h,speed,downKey,upKey,name) {
   this.x = x;
   this.y = y;
   this.vx = 0;
@@ -18,6 +18,7 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
   this.upKey = upKey;
 ////// NEW /////////
   this.score= 0;
+  this.name = name;
 ////// END ////////
 }
 
@@ -53,26 +54,16 @@ Paddle.prototype.display = function() {
   rect(this.x,this.y,this.w,this.h);
 }
 //// NEW ///////
-//displays score on screen
-function displayScore(){
-  textSize(15);
-  text("--SCORE--",250, 30);
-  text(""+leftPaddle.score, leftPaddle.x, 30);
-  text(""+rightPaddle.score, rightPaddle.x, 30);
+Paddle.prototype.scored = function(){
+  this.score += 1;
 }
-//makes scored smaller
-function score(paddle){
-  this.score+= 1;
-  if (this.score == maxScore){
-    gameOver = true;
-    background(0);
-    textSize(30);
-    textAlign(CENTER);
-    text(this.name + " wins!", width/2, height/3);
+
+Paddle.prototype.moveAI = function(ball){
+  if(abs(ball.x - this.x) >2*this.w ){
+    if(ball.y > this.y){
+      this.vy = this.speed;
+    }
+  else if(ball.y < this.y) this.vy = -this.speed;
   }
-}
-//makes scorer bigger
-function scoredOn(paddle){
-  this.h+= 10;
 }
 ////////// END //////////

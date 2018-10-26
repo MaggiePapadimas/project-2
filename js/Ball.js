@@ -68,12 +68,13 @@ Ball.prototype.isOffScreen = function () {
 
 // display()
 //
-// Draw the ball as a rectangle on the screen
+/////////NEW//////////
+//draws a red rectangle for the ball
 Ball.prototype.display = function () {
-  fill(255);
+  fill(255,0,0);
   rect(this.x,this.y,this.size,this.size);
 }
-
+///////////////END//////////////
 // handleCollision(paddle)
 //
 // Check if this ball overlaps the paddle passed as an argument
