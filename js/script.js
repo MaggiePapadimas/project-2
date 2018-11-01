@@ -108,6 +108,7 @@ function isGameOver(paddle){
     textAlign(CENTER);
 // makes the winner Auqua
     text(paddle.name + " wins!", width/2, height/3);
+    
   }
 }
 // makes winning AI green, losing AI red, and tied yellow
