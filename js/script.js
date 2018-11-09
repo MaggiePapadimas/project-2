@@ -17,6 +17,8 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 var gameMenu;
+var newBall;
+var ballFood;
 //images for buttons
 var button;
 var button1;
@@ -43,7 +45,7 @@ function setup() {
   background(255,0,0,1);
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5);
-
+  newBall = new NewBall(width/2,height/2,6,6,12,6);
   gameMenu = new GameMenu("#700000", buttonImage1, buttonImage2, buttonImage3, width, height);
 }
 
@@ -63,6 +65,9 @@ function draw() {
   else if (gameScreen == 2){
     displayScore();
     }
+  // for(var i = 0; i < ballFood; i = i+1){
+  //  image(meteor, enemyX[i],enemyY[i],enemySize,enemySize);
+  // }
 }
 //displays score on screen
 function displayScore(){
@@ -81,6 +86,7 @@ function isGameOver(paddle){
     textSize(30);
     textAlign(CENTER);
     text(paddle.name + " wins!", width/2, height/3);
+    text("click anywhere for menu", width/2, height/1.5);
     pop();
   }
 }
@@ -109,6 +115,7 @@ function mainGame(){
     rightPaddle.handleInput(ball);
 
       ball.update();
+      newBall.update();
       leftPaddle.update();
       rightPaddle.update();
   //tracks score && checks to see if game is over
@@ -123,17 +130,22 @@ function mainGame(){
         }
 
         ball.reset();
+        newBall.reset();
         checksScore();
 
       }
 
       ball.handleCollision(leftPaddle);
       ball.handleCollision(rightPaddle);
+      newBall.handleCollision(leftPaddle);
+      newBall.handleCollision(rightPaddle);
+
 
       leftPaddle.display();
       rightPaddle.display();
 
       ball.display();
+      newBall.display();
 }
 //mouse pressed for buttons.
 function mousePressed (){

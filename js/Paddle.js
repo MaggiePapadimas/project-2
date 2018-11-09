@@ -18,13 +18,11 @@ function Paddle(x,y,w,h,speed,downKey,upKey,name, color, isAI, side) {
   this.upKey = upKey;
   console.log(this.upKey);
 
-////// NEW /////////
   this.score= 0;
   this.name = name;
   this.color= color;
   this.isAI = isAI;
   this.side = side;
-////// END ////////
 }
 
 // handleInput()
@@ -69,8 +67,8 @@ Paddle.prototype.display = function() {
 //////END////////////
   rect(this.x,this.y,this.w,this.h);
 }
-//////////////////NEW///////////
-// adds 1 to score after ever score
+
+// adds 1 to score after every score
 Paddle.prototype.scored = function(){
   this.score += 1;
 }
@@ -86,4 +84,3 @@ Paddle.prototype.moveAI = function(ball){
   }
   else this.vy = 0;
 }
-////////// END //////////
