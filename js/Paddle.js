@@ -6,7 +6,7 @@
 // Paddle constructor
 //
 // Sets the properties with the provided arguments or defaults
-function Paddle(x,y,w,h,speed,downKey,upKey,name, color) {
+function Paddle(x,y,w,h,speed,downKey,upKey,name, color, isAI, side) {
   this.x = x;
   this.y = y;
   this.vx = 0;
@@ -16,10 +16,14 @@ function Paddle(x,y,w,h,speed,downKey,upKey,name, color) {
   this.speed = speed;
   this.downKey = downKey;
   this.upKey = upKey;
+  console.log(this.upKey);
+
 ////// NEW /////////
   this.score= 0;
   this.name = name;
   this.color= color;
+  this.isAI = isAI;
+  this.side = side;
 ////// END ////////
 }
 
@@ -27,7 +31,8 @@ function Paddle(x,y,w,h,speed,downKey,upKey,name, color) {
 //
 // Check if the up or down keys are pressed and update velocity
 // appropriately
-Paddle.prototype.handleInput = function() {
+
+Paddle.prototype.playerInput = function(){
   if (keyIsDown(this.upKey)) {
     this.vy = -this.speed;
   }
@@ -39,6 +44,14 @@ Paddle.prototype.handleInput = function() {
   }
 }
 
+Paddle.prototype.handleInput = function (ball) {
+  if(this.isAI){
+    this.moveAI(ball);
+  }
+  else{
+    this.playerInput();
+  }
+}
 // update()
 // Update y position based on velocity
 // Constrain the resulting position to be within the canvas
@@ -63,11 +76,14 @@ Paddle.prototype.scored = function(){
 }
 // AI
 Paddle.prototype.moveAI = function(ball){
-  if(abs(ball.x - this.x) >2*this.w ){
-    if(ball.y > this.y){
-      this.vy = this.speed;
+  if(ball.vx * this.side > 0){
+    if(abs(ball.x - this.x) >2*this.w ){
+      if(ball.y > this.y){
+        this.vy = this.speed;
+      }
+      else if(ball.y < this.y) this.vy = -this.speed;
     }
-  else if(ball.y < this.y) this.vy = -this.speed;
   }
+  else this.vy = 0;
 }
 ////////// END //////////
