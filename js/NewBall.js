@@ -14,13 +14,15 @@ NewBall.prototype.update = function () {
   // Update position with velocity
   this.x += this.vx;
   this.y += this.vy;
-
   // Constrain y position to be on screen
   this.y = constrain(this.y,0,height-this.size);
 
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
     this.vy = -this.vy;
+  }
+  if(this.isOffScreen()){
+    this.reset();
   }
 }
 
@@ -53,7 +55,9 @@ NewBall.prototype.handleCollision = function(paddle) {
     // Check if the ball overlaps the paddle on y axis
     if (this.y + this.size > paddle.y && this.y < paddle.y + paddle.h) {
       //make the paddle slower
-      paddle.speed -= 1;
+      if(paddle.speed > 2){
+        paddle.speed -= 0.5;
+      }
     }
   }
 }
@@ -62,9 +66,12 @@ NewBall.prototype.handleCollision = function(paddle) {
 NewBall.prototype.reset = function () {
   this.x = width/2;
   this.y = height/2;
-  this.vx = ball.speed;
-  this.vy = random(-10,10);
-  while(abs(ball.vy)< 3){
-    this.vy = random(-10,10);
+  this.vx = random(-this.speed, this.speed);
+  this.vy = random(-this.speed, this.speed);
+  while(abs(this.vy)< 3){
+    this.vy = random(-this.speed, this.speed);
+  }
+  while(abs(this.vx)< 3){
+    this.vx = random(-this.speed, this.speed);
   }
 }

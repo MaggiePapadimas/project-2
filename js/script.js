@@ -8,6 +8,7 @@
 // the left hand paddle.
 //
 // Written with JavaScript OOP.
+
 //gameOver & max score
 var gameOver = false;
 var maxScore = 10;
@@ -18,8 +19,8 @@ var leftPaddle;
 var rightPaddle;
 var gameMenu;
 var newBall;
-var ballFood;
-//images for buttons
+var ballFoods;
+
 var button;
 var button1;
 var button1Y;
@@ -44,8 +45,8 @@ function setup() {
 //background to hide lines from ball
   background(255,0,0,1);
   // Create a ball
-  ball = new Ball(width/2,height/2,5,5,10,5);
-  newBall = new NewBall(width/2,height/2,6,6,12,6);
+  ball = new Ball(width/2,height/2,5,5,10,10);
+  newBall = new NewBall(width/2,height/2,6,6,20,6);
   gameMenu = new GameMenu("#700000", buttonImage1, buttonImage2, buttonImage3, width, height);
 }
 
@@ -65,9 +66,6 @@ function draw() {
   else if (gameScreen == 2){
     displayScore();
     }
-  // for(var i = 0; i < ballFood; i = i+1){
-  //  image(meteor, enemyX[i],enemyY[i],enemySize,enemySize);
-  // }
 }
 //displays score on screen
 function displayScore(){
@@ -130,11 +128,12 @@ function mainGame(){
         }
 
         ball.reset();
-        newBall.reset();
         checksScore();
+        var x = random(0 , width);
+        var y = random(0, height);
+        ballFoods.push(new BallFood(x, y,30));
 
       }
-
       ball.handleCollision(leftPaddle);
       ball.handleCollision(rightPaddle);
       newBall.handleCollision(leftPaddle);
@@ -146,6 +145,14 @@ function mainGame(){
 
       ball.display();
       newBall.display();
+
+      for(var i = 0; i < ballFoods.length; i++){
+        ballFoods[i].display();
+        var hit = ballFoods[i].handleCollision(ball);
+        if(hit){
+          ballFoods.splice(i,1);
+        }
+      }
 }
 //mouse pressed for buttons.
 function mousePressed (){
@@ -159,6 +166,7 @@ function mousePressed (){
       leftPaddle = new Paddle(0,height/2,10,60,10,83,87, "Player 1","#8F1D21", false, -1);
       gameScreen = 1;
       background(0);
+      ballFoods = [];
     }
     //if pressed then pva game starts
     else if(buttonPressed == 2){
@@ -166,6 +174,7 @@ function mousePressed (){
       leftPaddle = new Paddle(0,height/2,10,60,10,83,87, "Player","#8F1D21", false, -1);
       gameScreen = 1;
       background(0);
+      ballFoods = [];
     }
     //if pressed then ava game starts
     else if(buttonPressed == 3){
@@ -173,6 +182,7 @@ function mousePressed (){
       leftPaddle = new Paddle(0,height/2,10,60,10,83,87, "Computer 1","#8F1D21", true, -1);
       gameScreen = 1;
       background(0);
+      ballFoods = [];
     }
   }
   if (gameScreen == 2){

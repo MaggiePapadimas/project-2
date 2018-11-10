@@ -76,9 +76,12 @@ Ball.prototype.handleCollision = function(paddle) {
 Ball.prototype.reset = function () {
   this.x = width/2;
   this.y = height/2;
-  this.vx = ball.speed;
-  this.vy = random(-10,10);
-  while(abs(ball.vy)< 3){
-    this.vy = random(-10,10);
+  this.vx = random(-this.speed, this.speed);
+  this.vy = random(-this.speed, this.speed);
+  while(abs(this.vy)< 3){
+    this.vy = random(-this.speed, this.speed);
+  }
+  while(abs(this.vx)< 3){
+    this.vx = random(-this.speed, this.speed);
   }
 }

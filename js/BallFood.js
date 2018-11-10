@@ -1,5 +1,5 @@
 //speeds original ball up
-function BallFood(x, y, vx, vy, size, speed) {
+function BallFood(x, y, size) {
   this.x = x;
   this.y = y;
   this.size = size;
@@ -20,7 +20,9 @@ BallFood.prototype.handleCollision = function(ball) {
     // Check if the ball overlaps the paddle on y axis
     if (this.y + this.size > ball.y && this.y < ball.y) {
       //make ball faster
-      ball.speed += 2;
+      ball.vx *= 2;
+      return true;
     }
   }
+  return false;
 }

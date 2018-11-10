@@ -1,3 +1,4 @@
+//this creates the game menu
 function GameMenu(color, button1, button2, button3, w, h) {
   this.color= color;
   this.button1 = button1;
@@ -10,7 +11,7 @@ function GameMenu(color, button1, button2, button3, w, h) {
   this.button2Y = this.h/2;
   this.button3Y = this.h/1.5;
 }
-
+//for clicking on screen
 GameMenu.prototype.handleInput = function(x, y) {
   var width = this.button1.width;
   var height = this.button1.height;
@@ -32,7 +33,7 @@ GameMenu.prototype.handleInput = function(x, y) {
     return 0;
   }
 }
-
+//displays the menu
 GameMenu.prototype.display = function() {
 //////////////////NEW///////////
   fill(this.color);
@@ -44,5 +45,4 @@ GameMenu.prototype.display = function() {
   image(this.button1, this.buttonX, this.button1Y);
   image(this.button2, this.buttonX, this.button2Y);
   image(this.button3, this.buttonX, this.button3Y);
-
 }
