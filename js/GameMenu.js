@@ -35,7 +35,6 @@ GameMenu.prototype.handleInput = function(x, y) {
 }
 //displays the menu
 GameMenu.prototype.display = function() {
-//////////////////NEW///////////
   fill(this.color);
   gameScreen = 0;
   background(0);

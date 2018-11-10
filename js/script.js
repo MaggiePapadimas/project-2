@@ -9,18 +9,19 @@
 //
 // Written with JavaScript OOP.
 
-//gameOver & max score
+//gameOver & max score & game screen
 var gameOver = false;
 var maxScore = 10;
 var gameScreen = 0;
-// Variable to contain the objects representing our ball and paddles
+// Variable to contain the objects representing our ball and paddles and menu
 var ball;
 var leftPaddle;
 var rightPaddle;
 var gameMenu;
+//newBall and ballFoods Variable
 var newBall;
 var ballFoods;
-
+//buttons for main meanu
 var button;
 var button1;
 var button1Y;
@@ -105,54 +106,54 @@ function checksScore(){
 }
 //the main game
 function mainGame(){
-  //makes the backgrond transparent for a ghosly effect
-      background(0,0,0,50);
-  // AI. Mover both paddles
+//makes the backgrond transparent for a ghosly effect
+  background(0,0,0,50);
+// AI. Mover both paddles
 
-    leftPaddle.handleInput(ball);
-    rightPaddle.handleInput(ball);
+  leftPaddle.handleInput(ball);
+  rightPaddle.handleInput(ball);
+    //handles the updtaes for paddles, new ball and ball
+  ball.update();
+  newBall.update();
+  leftPaddle.update();
+  rightPaddle.update();
+//tracks score && checks to see if game is over
+  if (ball.isOffScreen()) {
+    if(ball.x >= width){
+      leftPaddle.scored();
+      isGameOver(leftPaddle);
+    }
+    else{
+      rightPaddle.scored();
+      isGameOver(rightPaddle);
+    }
+    //resets ball, checks score and gives random location to ballFood
+    ball.reset();
+    checksScore();
+    var x = random(0 , width);
+    var y = random(0, height);
+    ballFoods.push(new BallFood(x, y,30));
 
-      ball.update();
-      newBall.update();
-      leftPaddle.update();
-      rightPaddle.update();
-  //tracks score && checks to see if game is over
-      if (ball.isOffScreen()) {
-        if(ball.x >= width){
-          leftPaddle.scored();
-          isGameOver(leftPaddle);
-        }
-        else{
-          rightPaddle.scored();
-          isGameOver(rightPaddle);
-        }
-
-        ball.reset();
-        checksScore();
-        var x = random(0 , width);
-        var y = random(0, height);
-        ballFoods.push(new BallFood(x, y,30));
-
-      }
-      ball.handleCollision(leftPaddle);
-      ball.handleCollision(rightPaddle);
-      newBall.handleCollision(leftPaddle);
-      newBall.handleCollision(rightPaddle);
-
-
-      leftPaddle.display();
-      rightPaddle.display();
-
-      ball.display();
-      newBall.display();
-
-      for(var i = 0; i < ballFoods.length; i++){
-        ballFoods[i].display();
-        var hit = ballFoods[i].handleCollision(ball);
-        if(hit){
-          ballFoods.splice(i,1);
-        }
-      }
+  }
+  //handles collisions
+  ball.handleCollision(leftPaddle);
+  ball.handleCollision(rightPaddle);
+  newBall.handleCollision(leftPaddle);
+  newBall.handleCollision(rightPaddle);
+  //displays paddles
+  leftPaddle.display();
+  rightPaddle.display();
+  //displays the ball and new ball
+  ball.display();
+  newBall.display();
+  //adds food for ball
+  for(var i = 0; i < ballFoods.length; i++){
+    ballFoods[i].display();
+    var hit = ballFoods[i].handleCollision(ball);
+    if(hit){
+      ballFoods.splice(i,1);
+    }
+  }
 }
 //mouse pressed for buttons.
 function mousePressed (){

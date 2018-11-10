@@ -29,7 +29,6 @@ function Paddle(x,y,w,h,speed,downKey,upKey,name, color, isAI, side) {
 //
 // Check if the up or down keys are pressed and update velocity
 // appropriately
-
 Paddle.prototype.playerInput = function(){
   if (keyIsDown(this.upKey)) {
     this.vy = -this.speed;
@@ -62,9 +61,7 @@ Paddle.prototype.update = function() {
 //
 // Draws the paddles as RED rectangles on the screen
 Paddle.prototype.display = function() {
-//////////////////NEW///////////
   fill(this.color);
-//////END////////////
   rect(this.x,this.y,this.w,this.h);
 }
 
